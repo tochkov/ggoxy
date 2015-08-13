@@ -1,0 +1,50 @@
+apply plugin: 'com.android.model.application'
+
+model {
+
+    android {
+        compileSdkVersion = 22
+        buildToolsVersion = "22.0.1"
+
+        defaultConfig.with {
+            applicationId = "com.zreader.main"
+            minSdkVersion.apiLevel = 16
+            targetSdkVersion.apiLevel = 22
+            versionCode = 1
+            versionName = "1.0"
+        }
+
+    }
+
+    android.buildTypes {
+
+        release {
+            minifyEnabled = false
+            proguardFiles += file('proguard-rules.pro')
+        }
+
+    }
+
+    android.sources {
+
+        main {
+            jniLibs {
+                source {
+                    srcDirs 'libs'
+                }
+            }
+        }
+
+    }
+}
+
+
+dependencies {
+    compile 'com.getbase:floatingactionbutton:1.10.0'
+    compile "com.android.support:appcompat-v7:22.2.1"
+    compile 'com.android.support:recyclerview-v7:22.2.1'
+
+    compile files('libs/android-query-full.0.26.7.jar')
+    compile files('libs/picasso-2.2.0.jar')
+    compile project(':pagerSlidingTabStrip1')
+}
