@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.goxapps.goxreader.filechooser.ExtractedFilesFragment">
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recyclerExtractedFiles"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--</android.support.v7.widget.RecyclerView>-->
+
+    <com.goxapps.goxreader.filechooser.GridRecyclerView
+        android:id="@+id/recyclerExtractedFiles"
+        android:layoutAnimation="@anim/gridview_layout_animation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.goxapps.goxreader.filechooser.GridRecyclerView>
+
+</RelativeLayout>

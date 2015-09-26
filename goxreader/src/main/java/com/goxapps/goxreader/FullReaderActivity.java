@@ -1,40 +1,37 @@
 package com.goxapps.goxreader;
 
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
-public class FullReaderActivity extends AppCompatActivity {
+public class FullReaderActivity extends AppCompatActivity implements BottomMenuFragment.OnFragmentInteractionListener {
+
+    public static final String TAG_BOT_MENU_FRAGMENT = "FullReaderActivity#TAG_BOT_MENU_FRAGMENT";
 
     private View mDecorView;
-    private boolean navigationVisible = true;
-    private View mCenterView;
 
+    private BottomMenuFragment menuFragment;
+
+    private boolean navigationVisible = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_reader);
 
-        mCenterView = findViewById(R.id.view_center);
-
         mDecorView = getWindow().getDecorView();
+        mDecorView.setClickable(true);
 
         mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
             public void onSystemUiVisibilityChange(int visibility) {
-                boolean visible = (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
-
-                Toast.makeText(FullReaderActivity.this, visible ? "visible" : "invisible", Toast.LENGTH_SHORT).show();
-
+                navigationVisible = (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+                menuFragment.onSystemNavigationToggled(navigationVisible);
             }
         });
-
-
-        mCenterView.setClickable(true);
 
         final GestureDetector singleClickDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -51,13 +48,32 @@ public class FullReaderActivity extends AppCompatActivity {
             }
         });
 
-
-        mCenterView.setOnTouchListener(new View.OnTouchListener() {
+        mDecorView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return singleClickDetector.onTouchEvent(event);
             }
         });
+
+
+//        int mSystemNavigationHeight = AppUtils.getNav(this);
+//        int mToolbarSize = AppUtils.getActionBarHeight(this);
+//
+//        findViewById(R.id.frame_bottom_menu).setMinimumHeight(3* mToolbarSize + mSystemNavigationHeight);
+
+
+
+        menuFragment = (BottomMenuFragment) getFragmentManager().findFragmentByTag(TAG_BOT_MENU_FRAGMENT);
+
+        if (menuFragment == null) {
+            menuFragment = BottomMenuFragment.newInstance(null, null);
+            getFragmentManager().beginTransaction().add(R.id.frame_bottom_menu, menuFragment, TAG_BOT_MENU_FRAGMENT).commit();
+        }
+
+
+        hideSystemUI();
+        showSystemUI();
+
 
     }
 
@@ -85,4 +101,8 @@ public class FullReaderActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }
