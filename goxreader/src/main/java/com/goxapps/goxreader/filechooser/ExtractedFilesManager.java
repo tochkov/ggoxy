@@ -1,6 +1,5 @@
 package com.goxapps.goxreader.filechooser;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -9,7 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class ExtractedFilesManager {
 
-    private ArrayList<File> fileList;
+    private ArrayList<FileWrapper> fileList;
 
     private ExtractedFilesManager() {
         fileList = new ArrayList<>();
@@ -24,13 +23,13 @@ public class ExtractedFilesManager {
         return instance;
     }
 
-    public void initAll(ConcurrentLinkedQueue<File> newFiles) {
+    public void initAll(ConcurrentLinkedQueue<FileWrapper> newFiles) {
 
         fileList.clear();
         fileList.addAll(newFiles);
     }
 
-    public ArrayList<File> getFiles() {
+    public ArrayList<FileWrapper> getFiles() {
         return fileList;
     }
 

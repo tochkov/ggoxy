@@ -9,7 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:padding="10dp"
-        android:background="@color/greenish_yelow">
+        android:background="@color/greenish_yelow"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="@dimen/thumbnail_width"
+            android:layout_height="@dimen/thumbnail_height"
+            android:background="@color/blueish_green"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/grid_cover_frame"
+            />
 
         <TextView
             android:id="@+id/grid_file_name"

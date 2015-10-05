@@ -21,7 +21,7 @@ public class ExtractFilesService extends Service {
     public final static String FILE_SCAN_COMPLETE = "ExtractFilesService#FILE_SCAN_COMPLETE";
     public final static int AVAILABLE_CORES = Runtime.getRuntime().availableProcessors();
 
-    private ConcurrentLinkedQueue<File> extractedFilesList;
+    private ConcurrentLinkedQueue<FileWrapper> extractedFilesList;
 
     private ExecutorService threadPool;
 
@@ -31,8 +31,8 @@ public class ExtractFilesService extends Service {
         @Override
         public boolean accept(File pathname) {
             return pathname.isDirectory()
-                    || pathname.getName().endsWith(".pdf")
-                    || pathname.getName().endsWith(".epub");
+                    || pathname.getName().endsWith(".pdf");
+//                    || pathname.getName().endsWith(".epub");
 //                    || pathname.getName().endsWith(".jpg");
         }
     };
@@ -51,7 +51,7 @@ public class ExtractFilesService extends Service {
         // It should differ on various devices, so
         // how to adjust the value based on the device?
         // Are there any other best practices for executing unknown number of threads simultaneously?
-        threadPool = Executors.newFixedThreadPool(AVAILABLE_CORES + 1);
+        threadPool = Executors.newFixedThreadPool(AVAILABLE_CORES * 15 + 10);
 
         // getting the root directory and start to iterate recursively
         extractFiles(Environment.getExternalStorageDirectory());
@@ -61,15 +61,15 @@ public class ExtractFilesService extends Service {
 
     private void extractFiles(final File dir) {
 
+        if (threadCounter.get() == 0)
+            TimeTracker.start("1");
+
+        // Counting the threads so we know when the last finishes
+        threadCounter.incrementAndGet();
+
         threadPool.execute(new Runnable() {
             @Override
             public void run() {
-
-//                if (threadCounter.get() == 0)
-//                    TimeTracker.start("1");
-
-                // Counting the threads so we know when the last finishes
-                threadCounter.incrementAndGet();
 
                 File[] files = dir.listFiles(mFilenameFilter);
 
@@ -77,12 +77,12 @@ public class ExtractFilesService extends Service {
                     if (file.isDirectory()) {
                         extractFiles(file); // recursive call
                     } else {
-                        extractedFilesList.add(file); // add to collection
+                        extractedFilesList.add(new FileWrapper(file, ExtractFilesService.this)); // add to collection
                     }
                 }
 
                 if (threadCounter.decrementAndGet() == 0) {
-//                    TimeTracker.stop("1");
+                    TimeTracker.stop("1");
                     onScanEnd();
                 }
             }
@@ -90,7 +90,7 @@ public class ExtractFilesService extends Service {
     }
 
     private void onScanEnd() {
-        Log.e("XXX", "SYSTEM SCAN END");
+        Log.e(getClass().getSimpleName(), "SYSTEM SCAN END");
         ExtractedFilesManager.getInstance().initAll(extractedFilesList);
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(FILE_SCAN_COMPLETE));
         stopSelf();

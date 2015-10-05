@@ -24,6 +24,7 @@ public class ExtractedFilesFragment extends Fragment {
     private GridRecyclerView recyclerView;
 
     public ExtractedFilesFragment() {
+
     }
 
     @Override
@@ -40,7 +41,7 @@ public class ExtractedFilesFragment extends Fragment {
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            recyclerView.setAdapter(new ExtractedFilesAdapter(ExtractedFilesManager.getInstance().getFiles()));
+            recyclerView.setAdapter(new ExtractedFilesAdapter(getActivity(), ExtractedFilesManager.getInstance().getFiles()));
             recyclerView.scheduleLayoutAnimation();
         }
     };
@@ -50,5 +51,6 @@ public class ExtractedFilesFragment extends Fragment {
         super.onResume();
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, new IntentFilter(ExtractFilesService.FILE_SCAN_COMPLETE));
+//        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, new IntentFilter("XXX"));
     }
 }

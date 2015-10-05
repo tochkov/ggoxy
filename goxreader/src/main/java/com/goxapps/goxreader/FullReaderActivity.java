@@ -10,6 +10,7 @@ import android.view.View;
 public class FullReaderActivity extends AppCompatActivity implements BottomMenuFragment.OnFragmentInteractionListener {
 
     public static final String TAG_BOT_MENU_FRAGMENT = "FullReaderActivity#TAG_BOT_MENU_FRAGMENT";
+    public static final String KEY_SELECTED_FILE_POSITION = "FullReaderActivity#KEY_SELECTED_FILE_POSITION";
 
     private View mDecorView;
 
