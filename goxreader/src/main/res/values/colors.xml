@@ -3,16 +3,13 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="hard_orange">#F79F79</color>
-    <color name="light_orange">#F7D08A</color>
-    <color name="greenish_yelow">#E3F098</color>
-    <color name="blueish_green">#87B6A7</color>
     <color name="greenish_brown">#5B5941</color>
-    <color name="dark_blue_gray">#455A64</color>
 
+    <color name="transparent">#00000000</color>
 
-
-
-
+    <color name="dark_blue_gray">#2572AC</color>
+    <!--<color name="dark_blue_gray">#006064</color>-->
+    <color name="accent_gray_blue">#37474F</color>
 
 
 

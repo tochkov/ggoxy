@@ -1,4 +1,4 @@
-package com.goxapps.goxreader;
+package com.goxapps.goxreader.reader;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.goxapps.goxreader.R;
+import com.goxapps.goxreader.filechooser.FileManager;
 
 public class FullReaderActivity extends AppCompatActivity implements BottomMenuFragment.OnFragmentInteractionListener {
 
@@ -74,6 +77,14 @@ public class FullReaderActivity extends AppCompatActivity implements BottomMenuF
 
         hideSystemUI();
         showSystemUI();
+
+
+        FileManager.getInstance().getFile(getIntent().getIntExtra(KEY_SELECTED_FILE_POSITION, 0)).save();
+
+
+
+
+
 
 
     }

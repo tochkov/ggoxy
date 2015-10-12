@@ -1,9 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.goxapps.goxreader.filechooser.FileChooserActivity">
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
+      tools:context="com.goxapps.goxreader.filechooser.ui.FileChooserActivity">
+    <item
+        android:id="@+id/action_sort_by_date"
+        android:orderInCategory="100"
+        android:title="by date"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_sort_by_name"
+        android:orderInCategory="100"
+        android:title="by name"
+        app:showAsAction="never"/>
+
 </menu>

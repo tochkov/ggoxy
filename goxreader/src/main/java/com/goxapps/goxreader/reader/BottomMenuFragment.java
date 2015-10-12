@@ -1,4 +1,4 @@
-package com.goxapps.goxreader;
+package com.goxapps.goxreader.reader;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
+
+import com.goxapps.goxreader.util.AppUtils;
+import com.goxapps.goxreader.R;
 
 import butterknife.Bind;
 import butterknife.BindInt;

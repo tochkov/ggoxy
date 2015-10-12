@@ -1,10 +1,8 @@
-package com.goxapps.goxreader.filechooser;
+package com.goxapps.goxreader.filechooser.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.PointF;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.util.SparseArray;
@@ -14,8 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.goxapps.goxreader.FullReaderActivity;
 import com.goxapps.goxreader.R;
+import com.goxapps.goxreader.filechooser.model.SmartFile;
+import com.goxapps.goxreader.reader.FullReaderActivity;
 
 import java.util.ArrayList;
 
@@ -24,26 +23,22 @@ import java.util.ArrayList;
  */
 public class ExtractedFilesAdapter extends Adapter {
 
-    private ArrayList<FileWrapper> sourceSet;
+    private ArrayList<SmartFile> sourceSet;
     private Context context;
 
-    private final SparseArray<PointF> mPageSizes = new SparseArray<PointF>();
-
-    public ExtractedFilesAdapter(Context context, ArrayList<FileWrapper> sourceSet) {
+    public ExtractedFilesAdapter(Context context, ArrayList<SmartFile> sourceSet) {
         this.context = context;
         this.sourceSet = sourceSet;
+
+        setHasStableIds(true);
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
+        View rootView;
+
         TextView tvFileName;
         ImageView ivFileCover;
-
-        public View getRootView() {
-            return rootView;
-        }
-
-        private View rootView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -53,13 +48,6 @@ public class ExtractedFilesAdapter extends Adapter {
             ivFileCover = (ImageView) itemView.findViewById(R.id.grid_cover_frame);
         }
 
-        private void setText(String text) {
-            tvFileName.setText(text);
-        }
-
-        public void setIvFileCover(Bitmap bitmap) {
-            ivFileCover.setImageDrawable(new BitmapDrawable(bitmap));
-        }
     }
 
     @Override
@@ -72,11 +60,11 @@ public class ExtractedFilesAdapter extends Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder recyclerHolder, final int position) {
 
         final ViewHolder holder = (ViewHolder) recyclerHolder;
-        final FileWrapper file = sourceSet.get(position);
+        final SmartFile file = sourceSet.get(position);
 
-        holder.setText(file.getName());
-        holder.setIvFileCover(file.getBitmapCover());
+        holder.tvFileName.setText(file.getName());
 
+        holder.ivFileCover.setImageBitmap(file.getBitmapCover());
 
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,5 +81,10 @@ public class ExtractedFilesAdapter extends Adapter {
     @Override
     public int getItemCount() {
         return sourceSet.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return sourceSet.get(position).getId();
     }
 }

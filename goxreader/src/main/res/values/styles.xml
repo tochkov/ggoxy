@@ -24,11 +24,6 @@
     <!-- Backward-compatible version of ?android:attr/buttonBarButtonStyle -->
     <style name="ButtonBarButton" />
 
-    <style name="menu_labels_style">
-        <item name="android:background">@color/black_overlay</item>
-        <item name="android:textColor">@color/light_orange</item>
-    </style>
-
 
 
 

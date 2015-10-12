@@ -1,5 +1,6 @@
-package com.goxapps.goxreader;
+package com.goxapps.goxreader.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -124,6 +125,21 @@ public class AppUtils {
         }
 
         return size;
+    }
+
+    public static int getScreenWidth(Activity activity){
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
+    }
+
+    /**
+     *
+     * @return the number of cores the device has avaliable
+     */
+    public static int getCores(){
+        return Runtime.getRuntime().availableProcessors();
     }
 
 

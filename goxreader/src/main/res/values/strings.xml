@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Gox Reader</string>
 
+    <string name="app_shared_prefs">com.goxapps.goxreader.prefs</string>
+
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 

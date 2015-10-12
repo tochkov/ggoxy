@@ -1,4 +1,4 @@
-package com.goxapps.goxreader.filechooser;
+package com.goxapps.goxreader.filechooser.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,18 +7,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.goxapps.goxreader.R;
+import com.goxapps.goxreader.filechooser.FileManager;
+import com.goxapps.goxreader.filechooser.services.ExtractFilesService;
 
 public class FileChooserActivity extends AppCompatActivity {
+
+    private ExtractedFilesFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_chooser);
 
+        fragment = (ExtractedFilesFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentExtractedFiles);
 
-        startService(new Intent(this, ExtractFilesService.class));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startService(new Intent(this, ExtractFilesService.class));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,7 +44,19 @@ public class FileChooserActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sort_by_date) {
+
+            FileManager.getInstance().sortFilesByCriteria(FileManager.SORT_BY_DATE);
+            fragment.notifyDataSetChanged();
+
+            return true;
+        }
+
+        if (id == R.id.action_sort_by_name) {
+
+            FileManager.getInstance().sortFilesByCriteria(FileManager.SORT_BY_NAME);
+            fragment.notifyDataSetChanged();
+
             return true;
         }
 
