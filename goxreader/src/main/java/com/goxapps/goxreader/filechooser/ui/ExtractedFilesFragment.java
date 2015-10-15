@@ -12,13 +12,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.goxapps.goxreader.R;
 import com.goxapps.goxreader.filechooser.FileManager;
 import com.goxapps.goxreader.filechooser.model.SmartFile;
-import com.goxapps.goxreader.filechooser.services.ExtractFilesService;
-import com.goxapps.goxreader.filechooser.services.GetBitmapCoversService;
-import com.goxapps.goxreader.util.AppUtils;
+import com.goxapps.goxreader.filechooser.services.ExtractFilesAndCoversService;
 
 import java.util.ArrayList;
 
@@ -28,6 +27,8 @@ import java.util.ArrayList;
 public class ExtractedFilesFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private View emptyView;
+    private ProgressBar progressBar;
     private ArrayList<SmartFile> fileList;
     private ExtractedFilesAdapter adapter;
     private GridLayoutManager layoutManager;
@@ -46,16 +47,20 @@ public class ExtractedFilesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_file_chooser, container, false);
 
+        emptyView = rootView.findViewById(R.id.textViewNoResults);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.loadingFilesProgress);
+
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerExtractedFiles);
 
         layoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(layoutManager);
 
-        if (!fileList.isEmpty()) {
+        if (fileList.isEmpty()) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
             adapter = new ExtractedFilesAdapter(getActivity(), fileList);
             recyclerView.setAdapter(adapter);
 
-            startBitmapCoversService();
         }
 
         return rootView;
@@ -65,8 +70,8 @@ public class ExtractedFilesFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(fileScanReceiver, new IntentFilter(ExtractFilesService.FILE_SCAN_COMPLETE));
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(bitmapLoadedReceiver, new IntentFilter(GetBitmapCoversService.BITMAP_LOADED));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(fileScanReceiver, new IntentFilter(ExtractFilesAndCoversService.FILE_SCAN_COMPLETE));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(bitmapLoadedReceiver, new IntentFilter(ExtractFilesAndCoversService.COVER_PERSISTED));
     }
 
     @Override
@@ -80,6 +85,14 @@ public class ExtractedFilesFragment extends Fragment {
     private BroadcastReceiver fileScanReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+
+            progressBar.setVisibility(View.GONE);
+
+            if (fileList.isEmpty()) {
+                emptyView.setVisibility(View.VISIBLE);
+                return;
+            }
+
             if (adapter == null) {
                 adapter = new ExtractedFilesAdapter(getActivity(), fileList);
                 recyclerView.setAdapter(adapter);
@@ -87,25 +100,17 @@ public class ExtractedFilesFragment extends Fragment {
             } else {
                 adapter.notifyDataSetChanged();
             }
-            startBitmapCoversService();
         }
     };
 
     private BroadcastReceiver bitmapLoadedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (adapter != null) {
-                int position = intent.getIntExtra(GetBitmapCoversService.KEY_BITMAP_LOADED_POSITION, -1);
+            int position = intent.getIntExtra(ExtractFilesAndCoversService.KEY_COVER_PERSISTED_POSITION, -1);
 
-                /**
-                 * if loaded from cache - notifyItem /to prevent ugly grid flashing/
-                 * if generated from pdf - notifyItem /for smoother animation/
-                 */
-                if (position > -1) {
-                    adapter.notifyItemChanged(position);
-                } else {
-                    adapter.notifyDataSetChanged();
-                }
+            if (adapter != null && position > -1) {
+//                adapter.notifyItemChanged(position);
+                adapter.notifyDataSetChanged();
             }
         }
     };
@@ -115,12 +120,5 @@ public class ExtractedFilesFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
-
-    private void startBitmapCoversService() {
-        Intent intent = new Intent(getActivity(), GetBitmapCoversService.class);
-        intent.putExtra(GetBitmapCoversService.KEY_BITMAP_WIDTH, AppUtils.getScreenWidth(getActivity()) / 3); // approximate cover width
-        getActivity().startService(intent);
-    }
-
 
 }

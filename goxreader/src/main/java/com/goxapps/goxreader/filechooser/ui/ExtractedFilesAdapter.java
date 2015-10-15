@@ -2,10 +2,8 @@ package com.goxapps.goxreader.filechooser.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PointF;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,7 @@ import android.widget.TextView;
 import com.goxapps.goxreader.R;
 import com.goxapps.goxreader.filechooser.model.SmartFile;
 import com.goxapps.goxreader.reader.FullReaderActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -64,7 +63,7 @@ public class ExtractedFilesAdapter extends Adapter {
 
         holder.tvFileName.setText(file.getName());
 
-        holder.ivFileCover.setImageBitmap(file.getBitmapCover());
+        ImageLoader.getInstance().displayImage("file://" + file.getCoverFilePath(), holder.ivFileCover);
 
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override

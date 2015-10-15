@@ -1,7 +1,9 @@
 package com.goxapps.goxreader;
 
-import android.util.Log;
-
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.orm.SugarApp;
 
 /**
@@ -15,9 +17,19 @@ public class GoxApp extends SugarApp {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .displayer(new FadeInBitmapDisplayer(300, true, true, false))
+                .build();
+
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+//                .defaultDisplayImageOptions(options)
+                .build();
+        ImageLoader.getInstance().init(config);
     }
 
-    public static GoxApp get(){
+    public static GoxApp get() {
         return instance;
     }
 }

@@ -26,7 +26,6 @@ public class FileManager {
 
     private ArrayList<SmartFile> fileList;
 
-    private ArrayList<SmartFile> filesNewArrival;
     private ArrayList<SmartFile> filesRedundant;
 
     private static FileManager instance;
@@ -43,13 +42,12 @@ public class FileManager {
         fileList = new ArrayList<>(SmartFile.listAll(SmartFile.class));
         sortFilesByCriteria(sortingCriteria);
 
-        filesNewArrival = new ArrayList<>();
         filesRedundant = new ArrayList<>();
     }
 
     public void updateFileRecords(ConcurrentLinkedQueue<SmartFile> newFiles) {
 
-        filesNewArrival.addAll(newFiles);
+        ArrayList<SmartFile> filesNewArrival = new ArrayList<>(newFiles);
         filesRedundant.addAll(fileList);
 
         filesNewArrival.removeAll(fileList);
@@ -109,7 +107,7 @@ public class FileManager {
         return prefs.getInt(KEY_SORTED_BY, SORT_BY_DATE); // by date by default
     }
 
-    public void saveCurrentSorting(int byCriteria) {
+    private void saveCurrentSorting(int byCriteria) {
         sortingCriteria = byCriteria;
         SharedPreferences prefs = GoxApp.get().getSharedPreferences(GoxApp.get().getString(R.string.app_shared_prefs), Context.MODE_PRIVATE);
         prefs.edit().putInt(KEY_SORTED_BY, sortingCriteria).apply();
