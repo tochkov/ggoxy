@@ -8,7 +8,6 @@ import android.view.MenuItem;
 
 import com.goxapps.goxreader.R;
 import com.goxapps.goxreader.filechooser.FileManager;
-import com.goxapps.goxreader.filechooser.services.ExtractFilesAndCoversService;
 
 public class FileChooserActivity extends AppCompatActivity {
 
@@ -26,8 +25,8 @@ public class FileChooserActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!ExtractFilesAndCoversService.isRunning())
-            startService(new Intent(this, ExtractFilesAndCoversService.class));
+        if (!UpdateFilesService.isRunning())
+            startService(new Intent(this, UpdateFilesService.class));
     }
 
     @Override

@@ -25,6 +25,7 @@ public class GoxApp extends SugarApp {
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
 //                .defaultDisplayImageOptions(options)
+                .threadPoolSize(Runtime.getRuntime().availableProcessors() + 1)
                 .build();
         ImageLoader.getInstance().init(config);
     }

@@ -128,13 +128,5 @@ public class AppUtils {
         return size;
     }
 
-    /**
-     *
-     * @return the number of cores the device has avaliable
-     */
-    public static int getCores(){
-        return Runtime.getRuntime().availableProcessors();
-    }
-
 
 }

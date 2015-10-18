@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.goxapps.goxreader.GoxApp;
 import com.goxapps.goxreader.R;
 import com.goxapps.goxreader.filechooser.model.SmartFile;
+import com.goxapps.goxreader.util.TimeTracker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +46,10 @@ public class FileManager {
         filesRedundant = new ArrayList<>();
     }
 
+    /**
+     * Could be a blocking operation. Do not call on UI thread
+     * @param newFiles
+     */
     public void updateFileRecords(ConcurrentLinkedQueue<SmartFile> newFiles) {
 
         ArrayList<SmartFile> filesNewArrival = new ArrayList<>(newFiles);

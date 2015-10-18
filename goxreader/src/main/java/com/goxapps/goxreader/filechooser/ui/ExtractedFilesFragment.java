@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import com.goxapps.goxreader.R;
 import com.goxapps.goxreader.filechooser.FileManager;
 import com.goxapps.goxreader.filechooser.model.SmartFile;
-import com.goxapps.goxreader.filechooser.services.ExtractFilesAndCoversService;
 
 import java.util.ArrayList;
 
@@ -70,8 +69,8 @@ public class ExtractedFilesFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(fileScanReceiver, new IntentFilter(ExtractFilesAndCoversService.FILE_SCAN_COMPLETE));
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(bitmapLoadedReceiver, new IntentFilter(ExtractFilesAndCoversService.COVER_PERSISTED));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(fileScanReceiver, new IntentFilter(UpdateFilesService.FILE_SCAN_COMPLETE));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(coverReadyReceiver, new IntentFilter(UpdateFilesService.COVER_READY));
     }
 
     @Override
@@ -79,7 +78,7 @@ public class ExtractedFilesFragment extends Fragment {
         super.onPause();
 
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(fileScanReceiver);
-        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(bitmapLoadedReceiver);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(coverReadyReceiver);
     }
 
     private BroadcastReceiver fileScanReceiver = new BroadcastReceiver() {
@@ -103,10 +102,10 @@ public class ExtractedFilesFragment extends Fragment {
         }
     };
 
-    private BroadcastReceiver bitmapLoadedReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver coverReadyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int position = intent.getIntExtra(ExtractFilesAndCoversService.KEY_COVER_PERSISTED_POSITION, -1);
+            int position = intent.getIntExtra(UpdateFilesService.KEY_COVER_READY, -1);
 
             if (adapter != null && position > -1) {
 //                adapter.notifyItemChanged(position);

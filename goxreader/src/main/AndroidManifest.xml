@@ -34,18 +34,6 @@
             android:label="@string/title_activity_full_reader">
         </activity>
 
-        <service
-            android:name=".filechooser.services.ExtractFilesAndCoversService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
-
-        <service
-            android:name=".filechooser.services.DeleteRedundantFilesService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
-
         <activity
             android:name=".filechooser.ui.FileChooserActivity"
             android:label="@string/title_activity_file_chooser">
