@@ -45,6 +45,13 @@
             </intent-filter>
 
         </activity>
+
+        <service
+            android:name=".filechooser.UpdateFilesService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
     </application>
 
 </manifest>

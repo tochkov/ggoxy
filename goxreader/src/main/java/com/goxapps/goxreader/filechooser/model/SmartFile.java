@@ -2,7 +2,6 @@ package com.goxapps.goxreader.filechooser.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.content.ContextCompat;
 
 import com.artifex.mupdfdemo.MuPDFCore;
@@ -40,7 +39,7 @@ public class SmartFile extends SugarRecord {
     private int userFrequency;
 
     @Ignore
-    private ArrayList<UserBookmark> userBookmarks;
+    private ArrayList<UserBookmark2> userBookmarks;
     @Ignore
     private ArrayList<UserNote> userNotes;
     @Ignore
@@ -191,7 +190,7 @@ public class SmartFile extends SugarRecord {
         return userLastPage;
     }
 
-    public ArrayList<UserBookmark> getUserBookmarks() {
+    public ArrayList<UserBookmark2> getUserBookmarks() {
         return userBookmarks;
     }
 

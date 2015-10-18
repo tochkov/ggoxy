@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 
 import com.goxapps.goxreader.R;
 import com.goxapps.goxreader.filechooser.FileManager;
+import com.goxapps.goxreader.filechooser.UpdateFilesService;
 import com.goxapps.goxreader.filechooser.model.SmartFile;
 
 import java.util.ArrayList;

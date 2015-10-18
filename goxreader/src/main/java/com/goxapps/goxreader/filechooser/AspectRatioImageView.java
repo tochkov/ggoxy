@@ -7,8 +7,7 @@ import android.widget.ImageView;
 /**
  * Created by tochkov.
  */
-public class AspectRatioImageView extends ImageView{
-
+public class AspectRatioImageView extends ImageView {
 
     public static final double PROPORTION = 1.414; // A4 standard
 
@@ -25,8 +24,7 @@ public class AspectRatioImageView extends ImageView{
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = getMeasuredWidth();
         setMeasuredDimension(width, (int) (width * PROPORTION));

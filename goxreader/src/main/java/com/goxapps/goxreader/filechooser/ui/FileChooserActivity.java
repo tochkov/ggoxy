@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.goxapps.goxreader.R;
 import com.goxapps.goxreader.filechooser.FileManager;
+import com.goxapps.goxreader.filechooser.UpdateFilesService;
 
 public class FileChooserActivity extends AppCompatActivity {
 
