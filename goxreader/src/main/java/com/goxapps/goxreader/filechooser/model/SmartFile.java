@@ -38,8 +38,8 @@ public class SmartFile extends SugarRecord {
     private int userLastPage;
     private int userFrequency;
 
-    @Ignore
-    private ArrayList<UserBookmark2> userBookmarks;
+//    @Ignore
+//    private ArrayList<UserBookmark> userBookmarks;
     @Ignore
     private ArrayList<UserNote> userNotes;
     @Ignore
@@ -190,9 +190,9 @@ public class SmartFile extends SugarRecord {
         return userLastPage;
     }
 
-    public ArrayList<UserBookmark2> getUserBookmarks() {
-        return userBookmarks;
-    }
+//    public ArrayList<UserBookmark> getUserBookmarks() {
+//        return userBookmarks;
+//    }
 
     public ArrayList<UserNote> getUserNotes() {
         return userNotes;
