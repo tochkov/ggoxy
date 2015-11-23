@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="actionBarStyle">@style/GrayActionBar</item>
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
@@ -10,6 +11,11 @@
         <item name="android:windowBackground">@null</item>
         <item name="metaButtonBarStyle">@style/ButtonBar</item>
         <item name="metaButtonBarButtonStyle">@style/ButtonBarButton</item>
+    </style>
+
+    <style name="GrayActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="background">@color/dark_gray_menu</item>
+        <!--<item name="background">@color/md_red</item>-->
     </style>
 
     <!-- Backward-compatible version of ?android:attr/buttonBarStyle -->

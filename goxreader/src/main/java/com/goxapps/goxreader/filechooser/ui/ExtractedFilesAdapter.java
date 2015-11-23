@@ -70,8 +70,10 @@ public class ExtractedFilesAdapter extends Adapter {
             public void onClick(View v) {
 
                 Intent intent = new Intent(context, FullReaderActivity.class);
-                intent.putExtra(FullReaderActivity.KEY_SELECTED_FILE_POSITION, position);
-                context.startActivity(intent);
+                intent.putExtra(FullReaderActivity.KEY_SELECTED_FILE_PATH, file.getFilePath());
+
+            context.startActivity(intent);
+
             }
         });
 

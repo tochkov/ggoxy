@@ -114,8 +114,8 @@ public class BottomMenuFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mMenuButton.getLayoutParams().height = mSystemNavigationHeight;
-        mMenuButton.setBackgroundColor(getResources().getColor(R.color.hard_orange));
+//        mMenuButton.getLayoutParams().height = mSystemNavigationHeight;
+//        mMenuButton.setBackgroundColor(getResources().getColor(R.color.hard_orange));
 
 
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) rootView.getLayoutParams();

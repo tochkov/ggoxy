@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.goxapps.goxreader.R;
 import com.goxapps.goxreader.filechooser.FileManager;
+import com.goxapps.goxreader.viewutils.ExtendedGridLayoutManager;
 import com.goxapps.goxreader.filechooser.UpdateFilesService;
 import com.goxapps.goxreader.filechooser.model.SmartFile;
 
@@ -31,7 +31,6 @@ public class ExtractedFilesFragment extends Fragment {
     private ProgressBar progressBar;
     private ArrayList<SmartFile> fileList;
     private ExtractedFilesAdapter adapter;
-    private GridLayoutManager layoutManager;
 
     public ExtractedFilesFragment() {
     }
@@ -52,8 +51,7 @@ public class ExtractedFilesFragment extends Fragment {
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerExtractedFiles);
 
-        layoutManager = new GridLayoutManager(getActivity(), 3);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new ExtendedGridLayoutManager(getActivity(), 3));
 
         if (fileList.isEmpty()) {
             progressBar.setVisibility(View.VISIBLE);

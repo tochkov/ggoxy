@@ -1,14 +1,17 @@
 package com.goxapps.goxreader.filechooser.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.goxapps.goxreader.R;
 import com.goxapps.goxreader.filechooser.FileManager;
 import com.goxapps.goxreader.filechooser.UpdateFilesService;
+import com.goxapps.goxreader.reader.FullReaderActivity;
 
 public class FileChooserActivity extends AppCompatActivity {
 
@@ -18,6 +21,18 @@ public class FileChooserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_chooser);
+
+        if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
+            Uri uri = getIntent().getData();
+            Log.e("XXX", "bambam: " + uri.getPath());
+            Log.e("XXX", "getScheme: " + uri.getScheme());
+
+            Intent intent = new Intent(this, FullReaderActivity.class);
+            intent.putExtra(FullReaderActivity.KEY_SELECTED_FILE_PATH, uri.getPath());
+            startActivity(intent);
+
+        }
+
 
         fragment = (ExtractedFilesFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentExtractedFiles);
 
@@ -44,23 +59,22 @@ public class FileChooserActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_sort_by_date) {
+        switch (id) {
 
-            FileManager.getInstance().sortFilesByCriteria(FileManager.SORT_BY_DATE);
-            fragment.notifyDataSetChanged();
+            case R.id.action_sort_by_date:
+                FileManager.getInstance().sortFilesByCriteria(FileManager.SORT_BY_DATE);
+                fragment.notifyDataSetChanged();
+                return true;
 
-            return true;
+            case R.id.action_sort_by_name:
+                FileManager.getInstance().sortFilesByCriteria(FileManager.SORT_BY_NAME);
+                fragment.notifyDataSetChanged();
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
         }
-
-        if (id == R.id.action_sort_by_name) {
-
-            FileManager.getInstance().sortFilesByCriteria(FileManager.SORT_BY_NAME);
-            fragment.notifyDataSetChanged();
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

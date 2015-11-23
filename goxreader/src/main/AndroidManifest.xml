@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.goxapps.goxreader"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest
+    package="com.goxapps.goxreader"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-        <!--android:name="com.orm.SugarApp"-->
+    <!-- android:name="com.orm.SugarApp" -->
     <application
-        android:name="com.goxapps.goxreader.GoxApp"
+        android:name=".GoxApp"
         android:allowBackup="true"
         android:icon="@mipmap/gox_launcher_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon"
-        >
-
+        tools:replace="android:icon">
         <meta-data
             android:name="DATABASE"
             android:value="sugar_gox.db"/>
@@ -31,7 +30,8 @@
 
         <activity
             android:name=".reader.FullReaderActivity"
-            android:label="@string/title_activity_full_reader">
+            android:label="@string/title_activity_full_reader"
+            android:theme="@style/AppTheme">
         </activity>
 
         <activity
@@ -40,9 +40,50 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:mimeType="application/pdf"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="file"/>
+                <data android:mimeType="*/*"/>
+                <data android:pathPattern=".*\\.pdf"/>
+                <data android:host="*"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="http"/>
+                <data android:host="*"/>
+                <data android:pathPattern=".*\\.pdf"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="https"/>
+                <data android:host="*"/>
+                <data android:pathPattern=".*\\.pdf"/>
+            </intent-filter>
+
 
         </activity>
 

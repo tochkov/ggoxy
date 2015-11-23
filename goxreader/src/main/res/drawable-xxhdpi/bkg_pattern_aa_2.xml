@@ -1,0 +1,5 @@
+<bitmap
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/bkg_pattern_dark_inside_diagonal_8px"
+    android:tileMode="repeat"
+    android:dither="true" />

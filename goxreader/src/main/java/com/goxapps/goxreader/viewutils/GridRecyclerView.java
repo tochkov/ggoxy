@@ -1,4 +1,4 @@
-package com.goxapps.goxreader.filechooser;
+package com.goxapps.goxreader.viewutils;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;

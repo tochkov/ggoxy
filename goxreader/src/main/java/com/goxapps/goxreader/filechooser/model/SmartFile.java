@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.support.v4.content.ContextCompat;
 
 import com.artifex.mupdfdemo.MuPDFCore;
-import com.goxapps.goxreader.filechooser.AspectRatioImageView;
+import com.goxapps.goxreader.viewutils.AspectRatioImageView;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
